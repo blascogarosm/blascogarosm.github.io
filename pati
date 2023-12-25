@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Porta del pati - Reforma</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 500px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: #333;
+            font-size: 18px;
+        }
+        a:hover {
+            color: #007bff;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Porta del pati</h1>
+        <ul>
+            <li><a href="https://www.bauhaus.es/balconeras-y-puertas-de-patio/solid-elements-balconera-practicable-mixta/p/26901844#anchor-product-scope-of-deliveryhttps://www.bauhaus.es/balconeras-y-puertas-de-patio/solid-elements-balconera-practicable-mixta/p/26901844#anchor-product-scope-of-delivery">Bauhaus 339€ Mixta</a></li>
+            <li><a href="https://www.leroymerlin.es/productos/puertas-ventanas-y-escaleras/ventanas/balconeras/puerta-aluminio-artens-practicable-de-80x210cm-82456240.html">Leroy 345€ Total</a></li>
+        </ul>
+        <a class="back-link" href="index.html">Enrere</a>
+    </div>
+</body>
+</html>
