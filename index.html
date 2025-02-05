@@ -7,38 +7,54 @@
             font-family: 'Arial', sans-serif;
             background-color: #fefae0;
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            padding: 20px;
         }
         .container {
+            max-width: 800px;
+            margin: 0 auto;
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 500px;
-            width: 90%;
         }
         h1 {
+            text-align: center;
             color: #6a994e;
             margin-bottom: 20px;
         }
-        ul {
+        .filter-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .filter-buttons button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #bc4749;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .filter-buttons button:hover {
+            background-color: #6a994e;
+        }
+        .recipe-list {
             list-style: none;
             padding: 0;
         }
-        li {
+        .recipe-list li {
             margin: 10px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
-        a {
+        .recipe-list a {
             text-decoration: none;
             font-size: 18px;
             color: #bc4749;
         }
-        a:hover {
+        .recipe-list a:hover {
             color: #6a994e;
         }
     </style>
@@ -46,12 +62,42 @@
 <body>
     <div class="container">
         <h1>My Recipe Book</h1>
-        <ul>
-            <li><a href="snacks.html">Snacks</a></li>
-            <li><a href="dinars.html">Dinars</a></li>
-            <li><a href="sopars.html">Sopars</a></li>
-            <li><a href="postres.html">Postres</a></li>
+        <div class="filter-buttons">
+            <button onclick="filterRecipes('all')">Show All</button>
+            <button onclick="filterRecipes('breakfast')">Breakfast</button>
+            <button onclick="filterRecipes('lunch')">Lunch</button>
+            <button onclick="filterRecipes('dinner')">Dinner</button>
+            <button onclick="filterRecipes('desserts')">Desserts</button>
+        </div>
+        <ul class="recipe-list" id="recipeList">
+            <li class="recipe breakfast">
+                <a href="pancakes.html">Pancakes</a> (Breakfast)
+            </li>
+            <li class="recipe breakfast">
+                <a href="smoothie.html">Smoothie</a> (Breakfast)
+            </li>
+            <li class="recipe lunch">
+                <a href="grilled-cheese.html">Grilled Cheese</a> (Lunch)
+            </li>
+            <li class="recipe dinner">
+                <a href="spaghetti.html">Spaghetti</a> (Dinner)
+            </li>
+            <li class="recipe desserts">
+                <a href="brownies.html">Brownies</a> (Desserts)
+            </li>
         </ul>
     </div>
+    <script>
+        function filterRecipes(category) {
+            const recipes = document.querySelectorAll('.recipe');
+            recipes.forEach(recipe => {
+                if (category === 'all' || recipe.classList.contains(category)) {
+                    recipe.style.display = 'block';
+                } else {
+                    recipe.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
