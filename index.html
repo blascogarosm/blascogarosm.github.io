@@ -1,100 +1,216 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Recipe Book</title>
+    <title>La Cuina de l'Ojerin</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Lilita+One&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #fefae0;
+            font-family: 'Open Sans', sans-serif;
+            background-color: #cecff0fe;
+            background-image: url('https://www.transparenttextures.com/patterns/soft-kill.png');
+            background-size: 3%;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(211, 211, 211, 0.22);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 10px 20px;
         }
-        h1 {
-            text-align: center;
-            color: #6a994e;
-            margin-bottom: 20px;
+        .header h1 {
+            margin: 0;
+            text-align: left;
+            background: #6200d9;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Lilita One', cursive;
+            font-size: 35px;
         }
         .filter-buttons {
-            text-align: center;
+            text-align: left;
+            margin-left: 10px;
             margin-bottom: 20px;
+            margin-top: 70px;
         }
-        .filter-buttons button {
-            margin: 5px;
-            padding: 10px 20px;
-            border: none;
-            background-color: #bc4749;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .filter-buttons button:hover {
-            background-color: #6a994e;
+        .filter-buttons select {
+            margin: 2px;
+            padding: 3px;
+            border-radius: 4px;
+            border: 1px solid #000000;
+            background-color: #ffffffb0;
         }
         .recipe-list {
             list-style: none;
             padding: 0;
         }
         .recipe-list li {
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-left: 15px;
+            margin-bottom: 15px;
+            margin-right: 15px;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: #ffffff86;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, background-color 0.3s ease;
+            overflow: hidden;
         }
-        .recipe-list a {
-            text-decoration: none;
+
+        .recipe-list li .info {
+            flex-grow: 1; /* Allows the text to take up all the available space */
+            margin-right: 20px; /* Adds space between the text and the image */
+        }
+
+        .recipe-list li .image {
+             flex-shrink: 0; /* Prevents the image from shrinking */
+            display: flex;
+            justify-content: flex-end; /* Ensures the image stays on the right */
+        }   
+        .recipe-list li .image img {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        .recipe-list li:hover {
+            transform: scaleY(1.0);
+            background-color: #f9f9f9;
+        }
+        .recipe-list li .info h3 {
+            margin: 0;
             font-size: 18px;
-            color: #bc4749;
+            font-weight: bold;
         }
-        .recipe-list a:hover {
-            color: #6a994e;
+        .recipe-list li .info .details {
+            font-size: 14px;
+            margin-top: 5px;
+            color: #666;
+        }
+        .recipe-list li .info p {
+            margin: 5px 0;
+            margin-top: 10px;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+        }
+        .recipe-list li .info p.hidden {
+             max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, opacity 0.5s ease; /* Smooth transitions */
+        }
+        .recipe-list li:hover .info p.hidden {
+            max-height: 500px; /* Set a large enough value to accommodate the content */
+            opacity: 1;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>La cuina de l'ojerin</h1>
+    <div class="header">
+        <h1>La Cuina de l'Ojerin</h1>
+    </div>
         <div class="filter-buttons">
-            <button onclick="filterRecipes('all')">Show All</button>
-            <button onclick="filterRecipes('snacks')">Snack</button>
-            <button onclick="filterRecipes('dinars')">Dinar</button>
-            <button onclick="filterRecipes('sopars')">Sopar</button>
-            <button onclick="filterRecipes('postres')">Postre</button>
+            <select id="mealType" onchange="filterRecipes()">
+                <option value="all">Tipus</option>
+                <option value="snacks">Snacks</option>
+                <option value="lunch">Dinars</option>
+                <option value="dinner">Sopars</option>
+                <option value="desserts">Postres</option>
+            </select>
+            <select id="cookTime" onchange="filterRecipes()">
+                <option value="all">Temps</option>
+                <option value="quick">Ràpid (≤ 30 min)</option>
+                <option value="mig">Mig (30-60 min)</option>
+                <option value="long">Llarg (≥ 60 min)</option>
+            </select>
+            <select id="difficulty" onchange="filterRecipes()">
+                <option value="all">Dificultat</option>
+                <option value="easy">Fàcil</option>
+                <option value="medium">Mig</option>
+                <option value="hard">Difícil</option>
+            </select>
+            <select id="rating" onchange="filterRecipes()">
+                <option value="all">Puntuació</option>
+                <option value="5">★★★★★</option>
+                <option value="4">★★★★</option>
+                <option value="3">★★★</option>
+                <option value="2">★★</option>
+                <option value="1">★</option>
+            </select>
         </div>
         <ul class="recipe-list" id="recipeList">
-            <li class="recipe snacks">
-                <a href="pau_marti.html">Pot d'avena i etc. (Pau Martí)</a>
+            <li class="recipe dinner mig easy 5">
+                <div class="info">
+                    <h3><a href="firstpizza.html">Pizza OG</a></h3>
+                    <div class="details">Sopar | Mig | Fàcil | ★★★★★</div>
+                    <p>La primera pizza que vam crear, una barreja de ceba, albergínia, bacon i una burrata!</p>
+                    <p class="hidden">
+                        <b>Ingredients:</b>
+                        <span style="display: block; margin-left: 20px; margin-top: 10px">
+                        · Massa de pizza <br>
+                        · 150g Tomàquet triturat <br>
+                        · 75g Mozzarella rallada <br>
+                        · 1/2 abergínia <br>
+                        · 1 ceba <br>
+                        · 75g bacon <br>
+                        · 1 burrata
+                    </span>
+                    </p>
+                </div>
+                <div class="image">
+                    <img src="firstpizza.jpeg" alt="Pizza">
+                </div>
             </li>
-            <li class="recipe dinars">
-                <a href="carbonara.html">Carbonara</a> 
-            </li>
-            <li class="recipe sopars">
-                <a href="first_pizza.html">Pizza OG</a> 
-            </li>
-            <li class="recipe postres">
-                <a href="brownie_mercadona.html">Brownie del Mercadona</a> 
+            <li class="recipe lunch quick easy 5">
+                <div class="info">
+                    <h3><a href="carbonara.html">Carbonara</a></h3>
+                    <div class="details">Dinar | Ràpid | Fàcil | ★★★★★</div>
+                    <p>La carbonara clàssica. Italiana, a base d'ou i formatge.</p>
+                    <p class="hidden">
+                        <b>Ingredients:</b>
+                        <span style="display: block; margin-left: 20px; margin-top: 10px">
+                        · 250g d'spaghetti <br>
+                        · 2 rovells d'ou <br>
+                        · 1 ou sencer <br>
+                        · 100g guanciale <br>
+                        · 100g pecorino romano <br>
+                    </span>
+                    </p>
+                </div>
+                <div class="image">
+                    <img src="carbonara.jpeg" alt="Carbonara">
+                </div>
             </li>
         </ul>
-    </div>
     <script>
-        function filterRecipes(category) {
-            const recipes = document.querySelectorAll('.recipe');
-            recipes.forEach(recipe => {
-                if (category === 'all' || recipe.classList.contains(category)) {
-                    recipe.style.display = 'block';
-                } else {
-                    recipe.style.display = 'none';
-                }
-            });
+        function filterRecipes() {
+    const type = document.getElementById('mealType').value;
+    const time = document.getElementById('cookTime').value;
+    const difficulty = document.getElementById('difficulty').value;
+    const rating = document.getElementById('rating').value;
+
+    const recipes = document.querySelectorAll('.recipe');
+    recipes.forEach(recipe => {
+        const matchesType = type === 'all' || recipe.classList.contains(type);
+        const matchesTime = time === 'all' || recipe.classList.contains(time);
+        const matchesDifficulty = difficulty === 'all' || recipe.classList.contains(difficulty);
+        const matchesRating = rating === 'all' || recipe.classList.contains(rating.toString()); // Convert rating to string
+
+        if (matchesType && matchesTime && matchesDifficulty && matchesRating) {
+            recipe.style.display = 'flex';
+        } else {
+            recipe.style.display = 'none';
         }
+    });
+}
     </script>
 </body>
 </html>
