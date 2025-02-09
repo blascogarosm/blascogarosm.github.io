@@ -155,12 +155,17 @@
                 <option value="2">★★</option>
                 <option value="1">★</option>
             </select>
+            <select id="doneStatus" onchange="filterRecipes()">
+                <option value="all">Provada?</option>
+                <option value="done">Si</option>
+                <option value="not-done">No</option>
+            </select>
         </div>
         <ul class="recipe-list" id="recipeList">
-            <li class="recipe dinner mig easy 5">
+            <li class="recipe dinner mig easy 5 done">
                 <div class="info">
                     <h3><a href="firstpizza.html">Pizza OG</a></h3>
-                    <div class="details">Sopar | Mig | Fàcil | ★★★★★</div>
+                    <div class="details">Sopar | Mig | Fàcil | ★★★★★ | ✔</div>
                     <p>La primera pizza que vam crear, una barreja de ceba, albergínia, bacon i una burrata!</p>
                     <p class="hidden">
                         <b>Ingredients:</b>
@@ -179,10 +184,10 @@
                     <img src="firstpizza.jpeg" alt="Pizza">
                 </div>
             </li>
-            <li class="recipe lunch quick easy 5">
+            <li class="recipe lunch quick easy 5 done">
                 <div class="info">
                     <h3><a href="carbonara.html">Carbonara</a></h3>
-                    <div class="details">Dinar | Ràpid | Fàcil | ★★★★★</div>
+                    <div class="details">Dinar | Ràpid | Fàcil | ★★★★★ | ✔</div>
                     <p>La carbonara clàssica. Italiana, a base d'ou i formatge.</p>
                     <p class="hidden">
                         <b>Ingredients:</b>
@@ -206,6 +211,7 @@
     const time = document.getElementById('cookTime').value;
     const difficulty = document.getElementById('difficulty').value;
     const rating = document.getElementById('rating').value;
+    const doneStatus = document.getElementById('doneStatus').value;
 
     const recipes = document.querySelectorAll('.recipe');
     recipes.forEach(recipe => {
@@ -213,8 +219,9 @@
         const matchesTime = time === 'all' || recipe.classList.contains(time);
         const matchesDifficulty = difficulty === 'all' || recipe.classList.contains(difficulty);
         const matchesRating = rating === 'all' || recipe.classList.contains(rating.toString()); // Convert rating to string
-
-        if (matchesType && matchesTime && matchesDifficulty && matchesRating) {
+        const matchesDoneStatus = doneStatus === 'all' || recipe.classList.contains(doneStatus);
+        
+        if (matchesType && matchesTime && matchesDifficulty && matchesRating && matchesDoneStatus) {
             recipe.style.display = 'flex';
         } else {
             recipe.style.display = 'none';
