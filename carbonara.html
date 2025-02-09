@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizza OG - La Cuina de l'Ojerin</title>
+    <title>Carbonara - La Cuina de l'Ojerin</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Lilita+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Lilita+One&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
@@ -18,10 +18,9 @@
         }
 
         .header {
-            position: fixed;
             top: 0;
             width: 100%;
-            background-color: rgba(211, 211, 211, 0.22);
+            background-color: rgba(202, 155, 255, 0.445);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             z-index: 1000;
             padding: 10px 20px;
@@ -35,81 +34,80 @@
             -webkit-text-fill-color: transparent;
             font-family: 'Lilita One', cursive;
             font-size: 35px;
+            font-optical-sizing: auto;
+            font-weight: 300;
+            font-style: normal;
         }
 
-        .content {
-            margin-top: 80px;
+        .recipe-content {
+            width: 90%;
+            max-width: 4000px;
+            margin: 20px auto;
             padding: 20px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
             background-color: #ffffff86;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .content h2 {
-            font-family: 'Lilita One', cursive;
-            color: #000000;
-            margin-bottom: 10px;
+        .recipe-content h1{
+            color:black;
+            margin-top: 0px;
+            font-family: "Funnel Sans", serif;
+            font-optical-sizing: auto;
+            font-weight: 900;
+            font-style: normal;
         }
 
-        .content .image img {
-            width: 200px;
-            height: auto;
-            border-radius: 10px;
+        .container {
+            display: flex;
+            align-items: flex-start;
+            gap: 50px;
             margin-bottom: 20px;
         }
 
-        .content h3 {
-            margin-top: 20px;
+        .container img {
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .ingredients {
+            flex: 1;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .ingredients h2 {
             font-size: 20px;
-            color: #333;
-        }
-
-        .content ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-
-        .content ul li {
             margin-bottom: 10px;
-        }
-
-        .content p {
-            line-height: 1.6;
-            color: #444;
-        }
-
-        .back-link {
-            display: block;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .back-link a {
-            text-decoration: none;
-            color: #6200d9;
             font-weight: bold;
-            font-size: 16px;
         }
 
-        @media (max-width: 768px) {
-            .content {
-                padding: 15px;
-            }
-            .content h2 {
-                font-size: 24px;
-            }
+        .ingredients ul {
+            list-style-type: disc;
+            padding-left: 30px;
         }
 
-        @media (max-width: 480px) {
-            .content h2 {
-                font-size: 20px;
-            }
-            .content h3 {
-                font-size: 18px;
-            }
+        .ingredients ul  li{
+            margin-bottom: 5px;
+
+        }
+
+        .instructions {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .instructions h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .instructions ol {
+            padding-left: 40px;
+        }
+        .instructions ol li{
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -118,25 +116,36 @@
         <h1>La Cuina de l'Ojerin</h1>
     </div>
 
-    <div class="content">
-        <h2>Pizza OG</h2>
-        <div class="image">
-            <img src="firstpizza.jpeg" alt="Recipe Image">
+    <div class="recipe-content">
+        <h1>Carbonara</h1>
+        <div class="container">
+            <img src="carbonara.jpeg" alt="Carbonara">
+            <div class="ingredients">
+                <h2>Ingredients</h2>
+                <ul>
+                    <li>250g d'spaghetti</li>
+                    <li>2 rovells d'ou</li>
+                    <li>1 ou sencer</li>
+                    <li>100g guanciale (o panceta o bacon)</li>
+                    <li>100g pecorino romano (o parmesà o grana padano)</li>
+                </ul>
+            </div>
         </div>
-        <h3>Ingredients</h3>
-        <ul>
-            <li>Ingredient 1</li>
-            <li>Ingredient 2</li>
-            <li>Ingredient 3</li>
-            <li>Ingredient 4</li>
-        </ul>
-        <h3>Instructions</h3>
-        <p>Step 1: Describe the first step of the recipe here.</p>
-        <p>Step 2: Add detailed instructions here.</p>
-        <p>Step 3: Continue with additional steps as necessary.</p>
-
-        <div class="back-link">
-            <a href="index.html">← Tornar</a>
+        <div class="instructions">
+            <h2>Instruccions</h2>
+            <ol>
+                <li>Posar l'aigua a bullir amb sal abundant i incorporar els spaghetti.</li>
+                <li>Tallar en daus el guanciale i a la paella amb poc oli.</li>
+                <li>Un cop està fet, retirar.</li>
+                <li>Posar en un bowl l'ou sencer i els dos rovells i remenar-ho tot bé.</li>
+                <li>Afegir el formatge al bowl, així com salpimentar al gust.</li>
+                <li>Quan els spaghetti estiguin al punt desitjat, colar-los guardant un got d'aigua de la cocció.</li>
+                <li>Intentant que la paella del guanciale estigui calenta (però apagada), incorporem els spaghettis i una mica d'aigua de la cocció.</li>
+                <li>Mentres remenem, anem incorporant la barreja d'ou poc a poc.</li>
+                <li>Corregir la textura al gust, amb l'aigua de cocció o amb més formatge.</li>
+                <li>A disftutar!</li>
+            </ol>
+            <a class="back-link" href="index.html">Tornar a l'índex de receptes</a>
         </div>
     </div>
 </body>
