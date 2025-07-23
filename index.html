@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>La Cuina de l'Ojerin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Lilita+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #cecff0fe;
+            background-image: url('https://www.transparenttextures.com/patterns/soft-kill.png');
+            background-size: 3%;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(211, 211, 211, 0.22);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 10px 20px;
+        }
+        .header h1 {
+            margin: 0;
+            text-align: left;
+            background: #6200d9;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Lilita One', cursive;
+            font-size: 35px;
+        }
+        .add-button {
+            display: inline-block;
+            margin-left: 10px;
+            margin-top: 5px;
+            padding: 8px 15px;
+            background-color: #6200d9;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .add-button:hover {
+            background-color: #4e00b1;
+        }
+        .filter-buttons {
+            text-align: left;
+            margin-left: 10px;
+            margin-top: 100px;
+            margin-bottom: 20px;
+        }
+        .filter-buttons select,
+        .filter-buttons input {
+            margin: 2px;
+            padding: 3px;
+            border-radius: 4px;
+            border: 1px solid #000000;
+            background-color: #ffffffb0;
+        }
+        .recipe-list {
+            list-style: none;
+            padding: 0;
+        }
+        .recipe-list li {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin: 15px;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: #ffffff86;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        .recipe-list li .info {
+            flex-grow: 1;
+            margin-right: 20px;
+        }
+        .recipe-list li .info h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .recipe-list li .info .details {
+            font-size: 14px;
+            margin-top: 5px;
+            margin-bottom: 12px;
+            color: #666;
+        }
+        .recipe-list li .info p.hidden {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, opacity 0.5s ease;
+        }
+        .recipe-list li:hover .info p.hidden {
+            max-height: 500px;
+            opacity: 1;
+        }
+        .recipe-list li .image {
+            flex-shrink: 0;
+        }
+        .recipe-list li .image img {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        .delete-btn {
+            background-color: transparent;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            color: red;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>La Cuina de l'Ojerin</h1>
+        <a href="add_recipe.html" class="add-button">+ Nova recepta</a>
+    </div>
+    <div class="filter-buttons">
+        <input type="text" id="searchBar" placeholder="Buscar..." oninput="searchRecipes()" />
+        <select id="mealType" onchange="filterRecipes()">
+            <option value="all">Tipus</option>
+            <option value="Snack">Snack</option>
+            <option value="Dinar">Dinar</option>
+            <option value="Sopar">Sopar</option>
+            <option value="Postres">Postres</option>
+        </select>
+        <select id="cookTime" onchange="filterRecipes()">
+            <option value="all">Temps</option>
+            <option value="Ràpid">Ràpid (≤30 min)</option>
+            <option value="Mig">Mig (30-60 min)</option>
+            <option value="Llarg">Llarg (≥ 60 min)</option>
+        </select>
+        <select id="difficulty" onchange="filterRecipes()">
+            <option value="all">Dificultat</option>
+            <option value="Fàcil">Fàcil</option>
+            <option value="Mig">Mig</option>
+            <option value="Difícil">Difícil</option>
+        </select>
+        <select id="rating" onchange="filterRecipes()">
+            <option value="all">Puntuació</option>
+            <option value="5">★★★★★</option>
+            <option value="4">★★★★</option>
+            <option value="3">★★★</option>
+            <option value="2">★★</option>
+            <option value="1">★</option>
+        </select>
+    </div>
+    <ul class="recipe-list" id="recipeList"></ul>
+
+    <script>
+        function searchRecipes() {
+            const term = document.getElementById('searchBar').value.toLowerCase();
+            const recipes = document.querySelectorAll('.recipe');
+            recipes.forEach(recipe => {
+                const name = recipe.querySelector('.info h3').textContent.toLowerCase();
+                recipe.style.display = name.includes(term) ? 'flex' : 'none';
+            });
+        }
+        function deleteRecipe(title) {
+            if (confirm(`Segur que vols eliminar la recepta "${title}"?`)) {
+                localStorage.removeItem(title);
+                location.reload();
+            }
+        }
+        function filterRecipes() {
+        const type = document.getElementById('mealType').value;
+        const time = document.getElementById('cookTime').value;
+        const difficulty = document.getElementById('difficulty').value;
+        const rating = document.getElementById('rating').value;
+        const recipes = document.querySelectorAll('.recipe');
+        recipes.forEach(recipe => {
+            const matchesType = type === 'all' || recipe.classList.contains(type);
+            const matchesTime = time === 'all' || recipe.classList.contains(time);
+            const matchesDifficulty = difficulty === 'all' || recipe.classList.contains(difficulty);
+            const matchesRating = rating === 'all' || recipe.classList.contains(rating);
+            recipe.style.display = (matchesType && matchesTime && matchesDifficulty && matchesRating) ? 'flex' : 'none';
+        });
+    }
+
+    window.onload = function () {
+            const list = document.getElementById('recipeList');
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const recipe = JSON.parse(localStorage.getItem(key));
+                if (!recipe) continue;
+                const li = document.createElement('li');
+                li.className = `recipe ${recipe.type} ${recipe.time} ${recipe.difficulty} ${recipe.rating}`;
+                li.innerHTML = `
+                    <div class="info">
+                        <h3><a href="recipe.html?title=${encodeURIComponent(recipe.title)}">${recipe.title}</a></h3>
+                        <div class="details">${recipe.type} | ${recipe.time} | ${recipe.difficulty} | ${'★'.repeat(recipe.rating)}</div>
+                        <div class="briefing">${recipe.briefing || ''}</div>
+                        <p class="hidden"><b>Ingredients:</b><br>${recipe.ingredients.map(i => `· ${i.trim()}`).join('<br>')}</p>
+                        <div class="actions">
+                            <a href="edit_recipe.html?title=${encodeURIComponent(recipe.title)}">✏️ Edita</a>
+                            <button class="delete-btn" onclick="deleteRecipe('${recipe.title}')">🗑️</button>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="${recipe.image}" alt="${recipe.title}">
+                    </div>
+                `;
+                list.appendChild(li);
+            }
+        };
+    </script>
+</body>
+</html>
