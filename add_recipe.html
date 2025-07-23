@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <title>Afegir recepta</title>
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #cecff0fe;
+      background-image: url('https://www.transparenttextures.com/patterns/soft-kill.png');
+      background-size: 3%;
+      margin: 0;
+      padding: 0;
+    }
+    body h1 {
+      margin-bottom: 10;
+      text-align: center;
+      background: #6200d9;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: 'Lilita One', cursive;
+      font-size: 35px;
+    }
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 800px;
+      margin: auto;
+      margin-bottom: 30px;
+    }
+    input, textarea, select {
+      width: 95%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background-color: #6200d9;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Afegir nova recepta</h1>
+  <form id="recipeForm">
+    <input type="text" id="title" placeholder="Títol" required />
+    <input type="text" id="image" placeholder="URL de la imatge" required />
+    <input type="text" id="briefing" placeholder="Descripció" />
+    <input type="text" id="video" placeholder="URL del vídeo (opcional)" />
+    <textarea id="ingredients" placeholder="Ingredients (separats per comes)" required></textarea> 
+    <textarea id="instructions" placeholder="Instruccions (separades per punts)" required></textarea>
+    <select id="mealType">
+      <option value="Snack">Snack</option>
+      <option value="Dinar">Dinar</option>
+      <option value="Sopar">Sopar</option>
+      <option value="Postres">Postres</option>
+    </select>
+    <select id="cookTime">
+      <option value="Ràpid">Ràpid (≤30 min)</option>
+      <option value="Mig">Mig (30-60 min)</option>
+      <option value="Llarg">Llarg (≥ 60 min)</option>
+    </select>
+    <select id="difficulty">
+      <option value="Fàcil">Fàcil</option>
+      <option value="Mig">Mig</option>
+      <option value="Difícil">Difícil</option>
+    </select>
+    <select id="rating">
+      <option value="5">★★★★★</option>
+      <option value="4">★★★★</option>
+      <option value="3">★★★</option>
+      <option value="2">★★</option>
+      <option value="1">★</option>
+    </select>
+    <button type="submit">Guardar recepta</button>
+  </form>
+
+  <script>
+    document.getElementById('recipeForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const recipe = {
+        title: title.value,
+        image: image.value,
+        briefing: briefing.value,
+        video: video.value,
+        ingredients: ingredients.value.split(','),
+        instructions: instructions.value.split('.'),
+        type: mealType.value,
+        time: cookTime.value,
+        difficulty: difficulty.value,
+        rating: rating.value
+      };
+      localStorage.setItem(recipe.title, JSON.stringify(recipe));
+      alert('Recepta guardada!');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
